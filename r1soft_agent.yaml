@@ -1,0 +1,30 @@
+--- # http://wiki.r1soft.com/display/ServerBackup/Install+Backup+Agent+on+Debian+and+Ubuntu+manually
+- name: Install R1soft Agent
+  hosts: ubuntu
+  connection: ssh
+  user: ubuntu
+  become: true
+  become_method: sudo 
+  tasks: 
+    
+  - name: Update Repo 
+    shell: |
+      echo deb http://repo.r1soft.com/apt stable main >> /etc/apt/sources.list
+      wget http://repo.r1soft.com/r1soft.asc
+      apt-key add r1soft.asc 
+      apt-get update 
+
+
+  - name: Install Agent 
+    package: 
+      name: serverbackup-enterprise-agent
+      state: present
+
+  - name: Start sbm agent 
+    systemd: 
+      name: sbm-agent
+      state: restarted
+      enabled: true
+
+  - name: Get Key
+    command: r1soft-setup --get-key http://3.15.160.103

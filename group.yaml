@@ -1,0 +1,15 @@
+---  # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/group_module.html
+- name: Add Group
+  hosts: amazon
+  connection: ssh
+  become: true
+  become_method: sudo 
+  tasks: 
+  - name: Ensure group "somegroup" exists
+    ansible.builtin.group:
+      name: "{{ item }}"
+      state: present
+    loop:
+    - sales
+    - somegroup
+    - marketing

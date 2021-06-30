@@ -1,0 +1,15 @@
+--- # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/get_url_module.html
+- name: Unarchive
+  hosts: amazon
+  connection: ssh
+  user: ec2-user
+  become: true
+  become_method: sudo 
+  tasks: 
+
+  - name: Get wordpress 
+    get_url:
+      url: https://wordpress.org/latest.tar.gz
+      dest: /tmp/wordpress.tar.gz
+      mode: '0440'
+  

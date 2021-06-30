@@ -1,0 +1,17 @@
+---  # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/user_module.html
+- name: Add Users
+  hosts: amazon
+  connection: ssh
+  user: ec2-user
+  become: true
+  become_method: sudo 
+  tasks: 
+  - name: Add Users
+    ansible.builtin.user: 
+      name: "{{ item }}"
+      state: present
+    with_items:
+    - bob
+    - lisa
+    - ben
+    - tom

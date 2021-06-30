@@ -1,0 +1,15 @@
+--- # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/file_module.html
+- name: Add File
+  hosts: amazon
+  connection: ssh
+  user: ec2-user
+  become: true
+  become_method: sudo 
+  tasks: 
+  - name: Change file ownership, group and permissions
+    ansible.builtin.file:
+      path: /tmp/foo.conf
+      owner: ec2-user
+      group: ec2-user
+      mode: '0644'
+      state: touch
